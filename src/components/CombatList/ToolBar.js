@@ -3,14 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     combatMemberSelectors,
     addMember,
-    nextMember,
-    previousMember,
     removeAllMembers,
     resetActiveMemberIndex,
+    changeActiveMember,
 } from '../../store/combatMemberSlice';
 import { createCombatMember } from '../../domain/CombatMember';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
-function ToolBar() {
+export default function ToolBar() {
     const dispatch = useDispatch();
     const combatMemberCount = useSelector(combatMemberSelectors.selectTotal);
     const ids = useSelector(combatMemberSelectors.selectIds);
@@ -30,20 +33,29 @@ function ToolBar() {
 
     return (
         <div>
-            <button onClick={() => dispatch(previousMember())}>
-                Vorheriger
+            <button
+                className='bg-blue-500 border-black rounded'
+                onClick={() => dispatch(changeActiveMember('previous'))}>
+                <SkipPreviousIcon />
             </button>
             <button
+                className='bg-red-500 rounded'
                 onClick={() => {
                     dispatch(removeAllMembers());
                     dispatch(resetActiveMemberIndex());
                 }}>
-                Zurücksetzen
+                <RestartAltIcon />
             </button>
-            <button onClick={addCombatMember}>Hinzufügen</button>
-            <button onClick={() => dispatch(nextMember())}>Nächster</button>
+            <button
+                className='bg-green-500 rounded'
+                onClick={addCombatMember}>
+                <PersonAddAlt1Icon />
+            </button>
+            <button
+                className='bg-blue-500 rounded'
+                onClick={() => dispatch(changeActiveMember('next'))}>
+                <SkipNextIcon />
+            </button>
         </div>
     );
 }
-
-export default ToolBar;

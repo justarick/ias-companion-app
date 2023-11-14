@@ -25,6 +25,27 @@ const combatMemberSlice = createSlice({
         updateMember: combatMemberAdapter.updateOne,
         removeMember: combatMemberAdapter.removeOne,
         removeAllMembers: combatMemberAdapter.removeAll,
+        changeActiveMember: (state, action) => {
+            const activeMemberIndex = state.activeMemberIndex;
+            const maxMemberIndex = state.ids.length - 1;
+            const direction = action.payload;
+
+            if (direction === 'next') {
+                if (activeMemberIndex === maxMemberIndex) {
+                    state.activeMemberIndex = 0;
+                } else {
+                    state.activeMemberIndex = state.activeMemberIndex + 1;
+                }
+            }
+
+            if (direction === 'previous') {
+                if (activeMemberIndex === 0) {
+                    state.activeMemberIndex = maxMemberIndex;
+                } else {
+                    state.activeMemberIndex = activeMemberIndex - 1;
+                }
+            }
+        },
         nextMember: (state) => {
             if (state.ids.length !== 0) {
                 state.activeMemberIndex =
@@ -51,6 +72,7 @@ export const {
     updateMember,
     removeMember,
     removeAllMembers,
+    changeActiveMember,
     nextMember,
     previousMember,
     resetActiveMemberIndex,

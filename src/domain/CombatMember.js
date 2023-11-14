@@ -6,10 +6,9 @@ export const createCombatMember = (id) => {
         stamina: 0,
         morale: 0,
         dramaPoints: 0,
-        armorPoints: 0,
         statusEffects: 0,
-        ammunition: 0,
         advantages: 0,
-        isDefeated: false,
+        armorPoints: 0,
+        ammunition: 0,
     };
 };

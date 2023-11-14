@@ -21,7 +21,7 @@ export default function CombatTable() {
 
     return (
         <div>
-            <table>
+            <table className='w-3/5'>
                 <thead>
                     <CombatTableHeader />
                 </thead>

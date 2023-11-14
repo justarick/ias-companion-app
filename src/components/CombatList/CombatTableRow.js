@@ -4,22 +4,25 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import {
     combatMemberSelectors,
     updateMember,
+    removeMember,
 } from '../../store/combatMemberSlice';
-
 import Counter from './Counter';
+import ClearIcon from '@mui/icons-material/Clear';
+import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 
 export default function CombatTableRow({ combatMember }) {
     const dispatch = useDispatch();
     const activeMemberId = useSelector(
         combatMemberSelectors.selectActiveMemberId
     );
-    const isActive = combatMember.id === activeMemberId ? 'true' : '';
+    const isActive =
+        combatMember.id === activeMemberId ? <LabelImportantIcon /> : '';
 
-    const changeName = (e) => {
+    const changeName = (newValue) => {
         dispatch(
             updateMember({
                 id: combatMember.id,
-                changes: { name: e.target.value },
+                changes: { name: newValue },
             })
         );
     };
@@ -60,29 +63,11 @@ export default function CombatTableRow({ combatMember }) {
         );
     };
 
-    const changeArmorPoints = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { armorPoints: newValue },
-            })
-        );
-    };
-
     const changeStatusEffects = (newValue) => {
         dispatch(
             updateMember({
                 id: combatMember.id,
                 changes: { statusEffects: newValue },
-            })
-        );
-    };
-
-    const changeAmmunition = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { ammunition: newValue },
             })
         );
     };
@@ -96,14 +81,37 @@ export default function CombatTableRow({ combatMember }) {
         );
     };
 
+    const changeArmorPoints = (newValue) => {
+        dispatch(
+            updateMember({
+                id: combatMember.id,
+                changes: { armorPoints: newValue },
+            })
+        );
+    };
+
+    const changeAmmunition = (newValue) => {
+        dispatch(
+            updateMember({
+                id: combatMember.id,
+                changes: { ammunition: newValue },
+            })
+        );
+    };
+
+    const remove = () => {
+        dispatch(removeMember(combatMember.id));
+    };
+
     return (
         <tr>
             <td>{isActive}</td>
             <td>
                 <input
                     type='text'
+                    className='border rounded'
                     value={combatMember.name}
-                    onChange={(e) => changeName(e)}
+                    onChange={(e) => changeName(e.target.value)}
                 />
             </td>
             <td>
@@ -132,20 +140,8 @@ export default function CombatTableRow({ combatMember }) {
             </td>
             <td>
                 <Counter
-                    value={combatMember.armorPoints}
-                    changeValue={(newValue) => changeArmorPoints(newValue)}
-                />
-            </td>
-            <td>
-                <Counter
                     value={combatMember.statusEffects}
                     changeValue={(newValue) => changeStatusEffects(newValue)}
-                />
-            </td>
-            <td>
-                <Counter
-                    value={combatMember.ammunition}
-                    changeValue={(newValue) => changeAmmunition(newValue)}
                 />
             </td>
             <td>
@@ -155,7 +151,21 @@ export default function CombatTableRow({ combatMember }) {
                 />
             </td>
             <td>
-                <input type='checkbox' />
+                <Counter
+                    value={combatMember.armorPoints}
+                    changeValue={(newValue) => changeArmorPoints(newValue)}
+                />
+            </td>
+            <td>
+                <Counter
+                    value={combatMember.ammunition}
+                    changeValue={(newValue) => changeAmmunition(newValue)}
+                />
+            </td>
+            <td>
+                <button onClick={() => remove()}>
+                    <ClearIcon />
+                </button>
             </td>
         </tr>
     );
