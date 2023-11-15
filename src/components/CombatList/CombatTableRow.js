@@ -5,18 +5,30 @@ import {
     combatMemberSelectors,
     updateMember,
     removeMember,
+    swapMemberIds,
 } from '../../store/combatMemberSlice';
 import Counter from './Counter';
-import ClearIcon from '@mui/icons-material/Clear';
-import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { red } from '@mui/material/colors';
 
-export default function CombatTableRow({ combatMember }) {
+export default function CombatTableRow(props) {
     const dispatch = useDispatch();
+    const combatMember = props.combatMember;
     const activeMemberId = useSelector(
         combatMemberSelectors.selectActiveMemberId
     );
-    const isActive =
-        combatMember.id === activeMemberId ? <LabelImportantIcon /> : '';
+    const isActive = combatMember.id === activeMemberId;
+
+    const changePosition = (direction) => {
+        dispatch(
+            swapMemberIds({
+                id: combatMember.id,
+                direction: direction,
+            })
+        );
+    };
 
     const changeName = (newValue) => {
         dispatch(
@@ -104,15 +116,26 @@ export default function CombatTableRow({ combatMember }) {
     };
 
     return (
-        <tr>
-            <td>{isActive}</td>
+        <tr className={isActive ? 'bg-gray-300' : ''}>
             <td>
-                <input
-                    type='text'
-                    className='border rounded'
-                    value={combatMember.name}
-                    onChange={(e) => changeName(e.target.value)}
-                />
+                <div className='flex flex-col'>
+                    <button onClick={() => changePosition('up')}>
+                        <ArrowDropUpIcon />
+                    </button>
+                    <button onClick={() => changePosition('down')}>
+                        <ArrowDropDownIcon />
+                    </button>
+                </div>
+            </td>
+            <td>
+                <div className='flex justify-center align-middle'>
+                    <input
+                        type='text'
+                        className='border border-slate-500'
+                        value={combatMember.name}
+                        onChange={(e) => changeName(e.target.value)}
+                    />
+                </div>
             </td>
             <td>
                 <Counter
@@ -163,9 +186,11 @@ export default function CombatTableRow({ combatMember }) {
                 />
             </td>
             <td>
-                <button onClick={() => remove()}>
-                    <ClearIcon />
-                </button>
+                <div className='flex justify-center'>
+                    <button onClick={() => remove()}>
+                        <DisabledByDefaultIcon sx={{ color: red[800] }} />
+                    </button>
+                </div>
             </td>
         </tr>
     );

@@ -5,7 +5,7 @@ import CombatTableRow from './CombatTableRow';
 import CombatTableHeader from './CombatTableHeader';
 
 export default function CombatTable() {
-    const combatMembers = useSelector(combatMemberSelectors.selectEntities);
+    const combatMembers = useSelector(combatMemberSelectors.selectAll);
 
     let combatMemberRows = [];
 
@@ -20,13 +20,9 @@ export default function CombatTable() {
     }
 
     return (
-        <div>
-            <table className='w-3/5'>
-                <thead>
-                    <CombatTableHeader />
-                </thead>
-                <tbody>{combatMemberRows}</tbody>
-            </table>
-        </div>
+        <table className='w-full border-separate border-spacing-x-0 border-spacing-y-4'>
+            <CombatTableHeader />
+            <tbody>{combatMemberRows}</tbody>
+        </table>
     );
 }

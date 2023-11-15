@@ -4,8 +4,8 @@ import {
     combatMemberSelectors,
     addMember,
     removeAllMembers,
+    changeActiveMemberIndex,
     resetActiveMemberIndex,
-    changeActiveMember,
 } from '../../store/combatMemberSlice';
 import { createCombatMember } from '../../domain/CombatMember';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -15,11 +15,10 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 export default function ToolBar() {
     const dispatch = useDispatch();
-    const combatMemberCount = useSelector(combatMemberSelectors.selectTotal);
     const ids = useSelector(combatMemberSelectors.selectIds);
 
     const addCombatMember = () => {
-        if (combatMemberCount === 0) {
+        if (ids.length === 0) {
             const newMember = createCombatMember(1);
 
             dispatch(addMember(newMember));
@@ -31,30 +30,36 @@ export default function ToolBar() {
         }
     };
 
+    const resetCombatList = () => {
+        dispatch(removeAllMembers());
+        dispatch(resetActiveMemberIndex());
+    };
+
+    const changeActiveMember = (direction) => {
+        dispatch(changeActiveMemberIndex(direction));
+    };
+
     return (
-        <div>
+        <div className='flex justify-evenly'>
             <button
                 className='bg-blue-500 border-black rounded'
-                onClick={() => dispatch(changeActiveMember('previous'))}>
-                <SkipPreviousIcon />
+                onClick={() => changeActiveMember('previous')}>
+                <SkipPreviousIcon fontSize='large' />
             </button>
             <button
                 className='bg-red-500 rounded'
-                onClick={() => {
-                    dispatch(removeAllMembers());
-                    dispatch(resetActiveMemberIndex());
-                }}>
-                <RestartAltIcon />
+                onClick={() => resetCombatList()}>
+                <RestartAltIcon fontSize='large' />
             </button>
             <button
                 className='bg-green-500 rounded'
-                onClick={addCombatMember}>
-                <PersonAddAlt1Icon />
+                onClick={() => addCombatMember()}>
+                <PersonAddAlt1Icon fontSize='large' />
             </button>
             <button
                 className='bg-blue-500 rounded'
-                onClick={() => dispatch(changeActiveMember('next'))}>
-                <SkipNextIcon />
+                onClick={() => changeActiveMember('next')}>
+                <SkipNextIcon fontSize='large' />
             </button>
         </div>
     );
