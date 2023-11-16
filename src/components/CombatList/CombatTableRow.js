@@ -5,12 +5,14 @@ import {
     updateMember,
     removeMember,
     switchCombatMemberIdIndices,
+    switchActiveCombatMemberId,
 } from '../../store/combatMemberSlice';
 import Counter from './Counter';
 import { ButtonGroup, IconButton } from '@mui/material';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import TextField from '@mui/material/TextField';
 import { red } from '@mui/material/colors';
 
 export default function CombatTableRow(props) {
@@ -107,6 +109,7 @@ export default function CombatTableRow(props) {
 
     const remove = () => {
         dispatch(removeMember(combatMember.id));
+        dispatch(switchActiveCombatMemberId('next'));
     };
 
     return (
@@ -123,10 +126,9 @@ export default function CombatTableRow(props) {
             </td>
             <td>
                 <div className='flex justify-center align-middle'>
-                    <input
-                        type='text'
-                        placeholder='Name'
-                        className='border border-slate-500'
+                    <TextField
+                        id='name'
+                        variant='outlined'
                         value={combatMember.name}
                         onChange={(e) => changeName(e.target.value)}
                     />
@@ -182,9 +184,11 @@ export default function CombatTableRow(props) {
             </td>
             <td>
                 <div className='flex justify-center'>
-                    <button onClick={() => remove()}>
-                        <DisabledByDefaultIcon sx={{ color: red[800] }} />
-                    </button>
+                    <IconButton
+                        color='error'
+                        onClick={() => remove()}>
+                        <DisabledByDefaultIcon fontSize='large' />
+                    </IconButton>
                 </div>
             </td>
         </tr>

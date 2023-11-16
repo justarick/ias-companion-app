@@ -1,10 +1,11 @@
+import React from 'react';
+import CombatToolbar from './CombatToolbar';
 import CombatTable from './CombatTable';
-import ToolBar from './ToolBar';
 
 export default function CombatList() {
     return (
         <div className='w-full m-4'>
-            <ToolBar />
+            <CombatToolbar />
             <CombatTable />
         </div>
     );

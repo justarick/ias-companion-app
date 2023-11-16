@@ -6,7 +6,7 @@ function App() {
     return (
         <div className='flex flex-row'>
             <CombatList />
-            {/* <ChallengeCalculator /> */}
+            <ChallengeCalculator />
         </div>
     );
 }

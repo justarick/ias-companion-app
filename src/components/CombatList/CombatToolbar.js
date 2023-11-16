@@ -7,13 +7,14 @@ import {
     switchActiveCombatMemberId,
     resetActiveCombatMemberId,
 } from '../../store/combatMemberSlice';
-import { createCombatMember } from '../../domain/CombatMember';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { Fab } from '@mui/material';
 
-export default function ToolBar() {
+export default function CombatToolbar() {
     const dispatch = useDispatch();
     const ids = useSelector(combatMemberSelectors.selectIds);
 
@@ -32,26 +33,31 @@ export default function ToolBar() {
 
     return (
         <div className='flex justify-evenly'>
-            <button
-                className='bg-blue-500 border-black rounded'
+            <Fab
+                color='primary'
                 onClick={() => changeActiveMember('previous')}>
                 <SkipPreviousIcon fontSize='large' />
-            </button>
-            <button
-                className='bg-red-500 rounded'
+            </Fab>
+            <Fab
+                color='error'
                 onClick={() => resetCombatList()}>
                 <RestartAltIcon fontSize='large' />
-            </button>
-            <button
-                className='bg-green-500 rounded'
+            </Fab>
+            <Fab
+                color='success'
                 onClick={() => addCombatMember()}>
                 <PersonAddAlt1Icon fontSize='large' />
-            </button>
-            <button
-                className='bg-blue-500 rounded'
+            </Fab>
+            <Fab
+                color='warning'
+                onClick={() => addCombatMember()}>
+                <WhatshotIcon fontSize='large' />
+            </Fab>
+            <Fab
+                color='primary'
                 onClick={() => changeActiveMember('next')}>
                 <SkipNextIcon fontSize='large' />
-            </button>
+            </Fab>
         </div>
     );
 }
