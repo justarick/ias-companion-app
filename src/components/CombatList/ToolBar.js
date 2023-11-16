@@ -4,8 +4,8 @@ import {
     combatMemberSelectors,
     addMember,
     removeAllMembers,
-    changeActiveMemberIndex,
-    resetActiveMemberIndex,
+    switchActiveCombatMemberId,
+    resetActiveCombatMemberId,
 } from '../../store/combatMemberSlice';
 import { createCombatMember } from '../../domain/CombatMember';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -18,25 +18,16 @@ export default function ToolBar() {
     const ids = useSelector(combatMemberSelectors.selectIds);
 
     const addCombatMember = () => {
-        if (ids.length === 0) {
-            const newMember = createCombatMember(1);
-
-            dispatch(addMember(newMember));
-        } else {
-            const id = Math.max(...ids) + 1;
-            const newMember = createCombatMember(id);
-
-            dispatch(addMember(newMember));
-        }
+        dispatch(addMember());
     };
 
     const resetCombatList = () => {
         dispatch(removeAllMembers());
-        dispatch(resetActiveMemberIndex());
+        dispatch(resetActiveCombatMemberId());
     };
 
     const changeActiveMember = (direction) => {
-        dispatch(changeActiveMemberIndex(direction));
+        dispatch(switchActiveCombatMemberId(direction));
     };
 
     return (

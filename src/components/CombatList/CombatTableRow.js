@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import {
-    combatMemberSelectors,
     updateMember,
     removeMember,
-    swapMemberIds,
+    switchCombatMemberIdIndices,
 } from '../../store/combatMemberSlice';
 import Counter from './Counter';
+import { ButtonGroup, IconButton } from '@mui/material';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -16,26 +16,20 @@ import { red } from '@mui/material/colors';
 export default function CombatTableRow(props) {
     const dispatch = useDispatch();
     const combatMember = props.combatMember;
-    const activeMemberId = useSelector(
-        combatMemberSelectors.selectActiveMemberId
+    const activeCombatMemberId = useSelector(
+        (state) => state.combatMemberSlice.activeCombatMemberId
     );
-    const isActive = combatMember.id === activeMemberId;
+    const isActive = combatMember.id === activeCombatMemberId;
 
-    const changePosition = (direction) => {
+    const changeInitiative = (direction) => {
         dispatch(
-            swapMemberIds({
-                id: combatMember.id,
-                direction: direction,
-            })
+            switchCombatMemberIdIndices({ id: combatMember.id, direction })
         );
     };
 
     const changeName = (newValue) => {
         dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { name: newValue },
-            })
+            updateMember({ id: combatMember.id, changes: { name: newValue } })
         );
     };
 
@@ -118,19 +112,20 @@ export default function CombatTableRow(props) {
     return (
         <tr className={isActive ? 'bg-gray-300' : ''}>
             <td>
-                <div className='flex flex-col'>
-                    <button onClick={() => changePosition('up')}>
+                <ButtonGroup orientation='vertical'>
+                    <IconButton onClick={() => changeInitiative('up')}>
                         <ArrowDropUpIcon />
-                    </button>
-                    <button onClick={() => changePosition('down')}>
+                    </IconButton>
+                    <IconButton onClick={() => changeInitiative('down')}>
                         <ArrowDropDownIcon />
-                    </button>
-                </div>
+                    </IconButton>
+                </ButtonGroup>
             </td>
             <td>
                 <div className='flex justify-center align-middle'>
                     <input
                         type='text'
+                        placeholder='Name'
                         className='border border-slate-500'
                         value={combatMember.name}
                         onChange={(e) => changeName(e.target.value)}

@@ -1,17 +1,17 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 export default function Counter({ value, changeValue }) {
     return (
-        <div className='flex justify-evenly'>
+        <div className='flex flex-row justify-between align-middle'>
             <button
                 className='btn'
                 onClick={() => changeValue(value - 1)}>
-                <RemoveCircleIcon />
+                <RemoveCircleOutlineIcon />
             </button>
-            <div>{value}</div>
+            <p className='font-bold text-2xl'>{value}</p>
             <button onClick={() => changeValue(value + 1)}>
-                <AddCircleIcon />
+                <AddCircleOutlineIcon />
             </button>
         </div>
     );

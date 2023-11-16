@@ -20,7 +20,7 @@ export default function CombatTable() {
     }
 
     return (
-        <table className='w-full border-separate border-spacing-x-0 border-spacing-y-4'>
+        <table className='w-full border-separate border-spacing-x-0 border-spacing-y-2'>
             <CombatTableHeader />
             <tbody>{combatMemberRows}</tbody>
         </table>

@@ -1,68 +1,96 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createCombatMember } from '../domain/CombatMember';
 
-export const combatMemberAdapter = createEntityAdapter();
+const combatMemberAdapter = createEntityAdapter();
 
 const initialState = combatMemberAdapter.getInitialState({
-    activeMemberIndex: 0,
+    activeCombatMemberId: 1,
 });
 
 const combatMemberSlice = createSlice({
     name: 'combatMemberSlice',
     initialState: initialState,
     reducers: {
-        addMember: combatMemberAdapter.addOne,
+        addMember: (state) => {
+            const ids = state.ids;
+
+            let newMember;
+
+            if (ids.length === 0) {
+                newMember = createCombatMember(1);
+            } else {
+                const ids = state.ids;
+                const id = Math.max(...ids) + 1;
+
+                newMember = createCombatMember(id);
+            }
+
+            combatMemberAdapter.addOne(state, newMember);
+        },
         updateMember: combatMemberAdapter.updateOne,
         removeMember: combatMemberAdapter.removeOne,
         removeAllMembers: combatMemberAdapter.removeAll,
-        resetActiveMemberIndex: (state) => {
-            state.activeMemberIndex = 0;
+        resetActiveCombatMemberId: (state) => {
+            state.activeCombatMemberId = 1;
         },
-        changeActiveMemberIndex: (state, action) => {
+        switchActiveCombatMemberId: (state, action) => {
             const direction = action.payload;
-            const currentIndex = state.activeMemberIndex;
-            const maxIndex = state.ids.length - 1;
+            const activeMemberId = state.activeCombatMemberId;
+            const activeMemberIdIndex = state.ids.indexOf(activeMemberId);
+            const maxIdIndex = state.ids.length - 1;
+
+            let newActiveMemberId = activeMemberId;
+
+            if (maxIdIndex === -1) {
+                return;
+            }
 
             if (direction === 'next') {
-                if (currentIndex === maxIndex) {
-                    state.activeMemberIndex = 0;
+                if (activeMemberIdIndex === maxIdIndex) {
+                    newActiveMemberId = state.ids[0];
                 } else {
-                    state.activeMemberIndex = currentIndex + 1;
+                    newActiveMemberId = state.ids[activeMemberIdIndex + 1];
                 }
             }
 
             if (direction === 'previous') {
-                if (currentIndex === 0) {
-                    state.activeMemberIndex = maxIndex;
+                if (activeMemberIdIndex === 0) {
+                    newActiveMemberId = state.ids[maxIdIndex];
                 } else {
-                    state.activeMemberIndex = currentIndex - 1;
+                    newActiveMemberId = state.ids[activeMemberIdIndex - 1];
                 }
             }
+
+            state.activeCombatMemberId = newActiveMemberId;
         },
-        swapMemberIds: (state, action) => {
+        switchCombatMemberIdIndices: (state, action) => {
             const direction = action.payload.direction;
             const currentIndex = state.ids.indexOf(action.payload.id);
-            let otherIndex;
-            let newIdArray = state.ids;
+            const maxIdIndex = state.ids.length - 1;
+
+            let targetIndex;
 
             if (direction === 'up') {
                 if (currentIndex === 0) {
-                    return;
+                    targetIndex = maxIdIndex;
                 } else {
-                    otherIndex = currentIndex - 1;
+                    targetIndex = currentIndex - 1;
                 }
             }
 
             if (direction === 'down') {
-                if (currentIndex === state.ids.length - 1) {
-                    return;
+                if (currentIndex === maxIdIndex) {
+                    targetIndex = 0;
                 } else {
-                    otherIndex = currentIndex + 1;
+                    targetIndex = currentIndex + 1;
                 }
             }
 
-            const temp = newIdArray[otherIndex];
-            newIdArray[otherIndex] = newIdArray[currentIndex];
-            newIdArray[currentIndex] = temp;
+            let newIdArray = state.ids;
+
+            const element = newIdArray.splice(currentIndex, 1)[0];
+
+            newIdArray.splice(targetIndex, 0, element);
 
             state.ids = newIdArray;
         },
@@ -71,12 +99,8 @@ const combatMemberSlice = createSlice({
 
 export const combatMemberSelectors = {
     ...combatMemberAdapter.getSelectors((state) => state.combatMemberSlice),
-    selectActiveMemberId: (state) => {
-        const activeMemberIndex = state.combatMemberSlice.activeMemberIndex;
-        const activeMemberId = state.combatMemberSlice.ids[activeMemberIndex];
-
-        return activeMemberId;
-    },
+    selectActiveCombatMemberId: (state) =>
+        state.combatMemberSlice.activeCombatMemberId,
 };
 
 export const {
@@ -84,9 +108,9 @@ export const {
     updateMember,
     removeMember,
     removeAllMembers,
-    resetActiveMemberIndex,
-    changeActiveMemberIndex,
-    swapMemberIds,
+    resetActiveCombatMemberId,
+    switchActiveCombatMemberId,
+    switchCombatMemberIdIndices,
 } = combatMemberSlice.actions;
 
 export default combatMemberSlice.reducer;

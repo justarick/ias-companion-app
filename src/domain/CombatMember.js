@@ -1,7 +1,7 @@
 export const createCombatMember = (id) => {
     return {
         id: id,
-        name: 'Name',
+        name: '',
         health: 0,
         stamina: 0,
         morale: 0,
