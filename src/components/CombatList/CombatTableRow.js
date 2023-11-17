@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import {
@@ -13,103 +13,35 @@ import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
-import { red } from '@mui/material/colors';
 
 export default function CombatTableRow(props) {
     const dispatch = useDispatch();
     const combatMember = props.combatMember;
-    const activeCombatMemberId = useSelector(
-        (state) => state.combatMemberSlice.activeCombatMemberId
-    );
-    const isActive = combatMember.id === activeCombatMemberId;
+    const isActive =
+        combatMember.id ===
+        useSelector((state) => state.combatMemberSlice.activeCombatMemberId);
 
     const changeInitiative = (direction) => {
         dispatch(
-            switchCombatMemberIdIndices({ id: combatMember.id, direction })
-        );
-    };
-
-    const changeName = (newValue) => {
-        dispatch(
-            updateMember({ id: combatMember.id, changes: { name: newValue } })
-        );
-    };
-
-    const changeHealth = (newValue) => {
-        dispatch(
-            updateMember({
+            switchCombatMemberIdIndices({
                 id: combatMember.id,
-                changes: { health: newValue },
+                direction: direction,
             })
         );
     };
 
-    const changeStamina = (newValue) => {
+    const changeAttributeValue = (attribute, newValue) => {
         dispatch(
             updateMember({
                 id: combatMember.id,
-                changes: { stamina: newValue },
-            })
-        );
-    };
-
-    const changeMorale = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { morale: newValue },
-            })
-        );
-    };
-
-    const changeDramaPoints = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { dramaPoints: newValue },
-            })
-        );
-    };
-
-    const changeStatusEffects = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { statusEffects: newValue },
-            })
-        );
-    };
-
-    const changeAdvantages = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { advantages: newValue },
-            })
-        );
-    };
-
-    const changeArmorPoints = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { armorPoints: newValue },
-            })
-        );
-    };
-
-    const changeAmmunition = (newValue) => {
-        dispatch(
-            updateMember({
-                id: combatMember.id,
-                changes: { ammunition: newValue },
+                changes: { [attribute]: newValue },
             })
         );
     };
 
     const remove = () => {
         dispatch(removeMember(combatMember.id));
-        dispatch(switchActiveCombatMemberId('next'));
+        if (isActive) dispatch(switchActiveCombatMemberId('next'));
     };
 
     return (
@@ -125,68 +57,87 @@ export default function CombatTableRow(props) {
                 </ButtonGroup>
             </td>
             <td>
-                <div className='flex justify-center align-middle'>
+                <div className='flex justify-center'>
                     <TextField
                         id='name'
                         variant='outlined'
+                        placeholder='Name'
                         value={combatMember.name}
-                        onChange={(e) => changeName(e.target.value)}
+                        onChange={(e) =>
+                            changeAttributeValue('name', e.target.value)
+                        }
                     />
                 </div>
             </td>
             <td>
                 <Counter
                     value={combatMember.health}
-                    changeValue={(newValue) => changeHealth(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('health', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.stamina}
-                    changeValue={(newValue) => changeStamina(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('stamina', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.morale}
-                    changeValue={(newValue) => changeMorale(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('morale', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.dramaPoints}
-                    changeValue={(newValue) => changeDramaPoints(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('dramaPoints', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.statusEffects}
-                    changeValue={(newValue) => changeStatusEffects(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('statusEffects', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.advantages}
-                    changeValue={(newValue) => changeAdvantages(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('advantages', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.armorPoints}
-                    changeValue={(newValue) => changeArmorPoints(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('armorPoints', newValue)
+                    }
                 />
             </td>
             <td>
                 <Counter
                     value={combatMember.ammunition}
-                    changeValue={(newValue) => changeAmmunition(newValue)}
+                    changeValue={(newValue) =>
+                        changeAttributeValue('ammunition', newValue)
+                    }
                 />
             </td>
             <td>
                 <div className='flex justify-center'>
                     <IconButton
                         color='error'
-                        onClick={() => remove()}>
+                        onClick={remove}>
                         <DisabledByDefaultIcon fontSize='large' />
                     </IconButton>
                 </div>

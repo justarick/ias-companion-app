@@ -12,7 +12,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-import { Fab } from '@mui/material';
+import { Fab, IconButton } from '@mui/material';
 
 export default function CombatToolbar() {
     const dispatch = useDispatch();
@@ -33,31 +33,26 @@ export default function CombatToolbar() {
 
     return (
         <div className='flex justify-evenly'>
-            <Fab
+            <IconButton
                 color='primary'
                 onClick={() => changeActiveMember('previous')}>
                 <SkipPreviousIcon fontSize='large' />
-            </Fab>
-            <Fab
+            </IconButton>
+            <IconButton
                 color='error'
                 onClick={() => resetCombatList()}>
                 <RestartAltIcon fontSize='large' />
-            </Fab>
-            <Fab
+            </IconButton>
+            <IconButton
                 color='success'
                 onClick={() => addCombatMember()}>
                 <PersonAddAlt1Icon fontSize='large' />
-            </Fab>
-            <Fab
-                color='warning'
-                onClick={() => addCombatMember()}>
-                <WhatshotIcon fontSize='large' />
-            </Fab>
-            <Fab
+            </IconButton>
+            <IconButton
                 color='primary'
                 onClick={() => changeActiveMember('next')}>
                 <SkipNextIcon fontSize='large' />
-            </Fab>
+            </IconButton>
         </div>
     );
 }
