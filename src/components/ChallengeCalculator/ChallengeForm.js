@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { Divider, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,135 +18,137 @@ import {
     challengeCalculatorSelectors,
     updatePool,
 } from '../../store/challengeCalculatorSlice';
+import ChallengeFormCounter from './ChallengeFormCounter';
+import ChallengeFormText from './ChallengeFormText';
+import ChallengeFormDisplay from './ChallengeFormDisplay';
 
 export default function ChallengeForm() {
     const dispatch = useDispatch();
     const slice = useSelector(challengeCalculatorSelectors.slice);
 
+    const changeChallangeRating = (newValue) => {
+        dispatch(updateChallangeRating(newValue));
+        dispatch(calculateInterimResult());
+    };
+
+    const changeAttribute = (newValue) => {
+        dispatch(updateAttribute(newValue));
+        dispatch(calculatePool());
+    };
+
+    const changeSkill = (newValue) => {
+        dispatch(updateSkill(newValue));
+        dispatch(calculatePool());
+    };
+
+    const changeBonus = (newValue) => {
+        dispatch(updateBonus(newValue));
+        dispatch(calculatePool());
+    };
+
+    const changeAdvantage = (newValue) => {
+        dispatch(updateAdvantage(newValue));
+        dispatch(calculatePool());
+    };
+
+    const changeStatusEffects = (newValue) => {
+        dispatch(updateStatusEffects(newValue));
+        dispatch(calculatePool());
+    };
+
+    const changePool = (newValue) => {
+        dispatch(updatePool(newValue));
+        dispatch(calculateRestPool());
+    };
+
+    const changeDice = (newValue) => {
+        dispatch(updateDice(newValue));
+        dispatch(calculateRestPool());
+        dispatch(calculateInterimResult());
+    };
+
+    const changeDiceResult = (newValue) => {
+        dispatch(updateDiceResult(newValue));
+        dispatch(calculateInterimResult());
+    };
+
+    const changeSacrifice = (newValue) => {
+        dispatch(updateSacrifice(newValue));
+        dispatch(calculateResult());
+    };
+
     return (
         <form className='flex flex-col mt-2'>
-            <TextField
-                id='challenge-rating'
-                label='Schwierigkeit'
-                variant='outlined'
-                value={slice.challangeRating}
-                onChange={(e) => {
-                    const newChallangeRating = parseInt(e.target.value);
-                    dispatch(updateChallangeRating(newChallangeRating));
-                    dispatch(calculateInterimResult());
-                }}
-            />
-            <TextField
-                id='attribute'
+            <div className='font-bold'>
+                <ChallengeFormText
+                    label='Schwierigkeit'
+                    value={slice.challangeRating}
+                    changeValue={changeChallangeRating}
+                />
+            </div>
+            <ChallengeFormCounter
                 label='Attribut'
-                variant='outlined'
                 value={slice.attribute}
-                onChange={(e) => {
-                    const newAttribute = parseInt(e.target.value);
-                    dispatch(updateAttribute(newAttribute));
-                    dispatch(calculatePool());
-                }}
+                changeValue={changeAttribute}
             />
-            <TextField
-                id='attribute-skill'
+            <ChallengeFormCounter
                 label='Attribut / Fertigkeit'
-                variant='outlined'
                 value={slice.skill}
-                onChange={(e) => {
-                    const newSkill = parseInt(e.target.value);
-                    dispatch(updateSkill(newSkill));
-                    dispatch(calculatePool());
-                }}
+                changeValue={changeSkill}
             />
-            <TextField
-                id='bonus'
+            <ChallengeFormCounter
                 label='Ausrüstungsbonus'
-                variant='outlined'
                 value={slice.bonus}
-                onChange={(e) => {
-                    const newBonus = parseInt(e.target.value);
-                    dispatch(updateBonus(newBonus));
-                    dispatch(calculatePool());
-                }}
+                changeValue={changeBonus}
             />
-            <TextField
-                id='advantage'
+            <ChallengeFormCounter
                 label='Vorteil'
-                variant='outlined'
                 value={slice.advantage}
-                onChange={(e) => {
-                    const newAdvantage = parseInt(e.target.value);
-                    dispatch(updateAdvantage(newAdvantage));
-                    dispatch(calculatePool());
-                }}
+                changeValue={changeAdvantage}
             />
-            <TextField
-                id='status-effect'
+            <ChallengeFormCounter
                 label='Statuseffekte'
-                variant='outlined'
                 value={slice.statusEffects}
-                onChange={(e) => {
-                    const newStatusEffect = parseInt(e.target.value);
-                    dispatch(updateStatusEffects(newStatusEffect));
-                    dispatch(calculatePool());
-                }}
+                changeValue={changeStatusEffects}
             />
-            <TextField
-                id='pool'
-                label='Pool'
-                variant='outlined'
-                value={slice.pool}
-                onChange={(e) => {
-                    const newPool = parseInt(e.target.value);
-                    dispatch(updatePool(newPool));
-                    dispatch(calculateRestPool());
-                }}
-            />
-            <TextField
-                id='dice'
-                label='Würfel'
-                variant='outlined'
+            <div className='font-bold'>
+                <ChallengeFormText
+                    className='font-bold'
+                    label='Pool'
+                    value={slice.pool}
+                    changeValue={changePool}
+                />
+            </div>
+            <ChallengeFormCounter
+                label='Würfel +1'
                 value={slice.dice}
-                onChange={(e) => {
-                    const newDice = parseInt(e.target.value);
-                    dispatch(updateDice(newDice));
-                    dispatch(calculateRestPool());
-                    dispatch(calculateInterimResult());
-                }}
+                changeValue={changeDice}
             />
-            <div className='flex flex-row justify-between'>
-                <label htmlFor='rest-pool'>Restpool</label>
-                <p id='rest-pool'>{slice.restPool}</p>
-            </div>
-            <TextField
-                id='dice-result'
+            <ChallengeFormDisplay
+                label='Restpool'
+                value={slice.restPool}
+            />
+            <ChallengeFormCounter
                 label='Würfelergebnis'
-                variant='outlined'
                 value={slice.diceResult}
-                onChange={(e) => {
-                    const newDiceResult = parseInt(e.target.value);
-                    dispatch(updateDiceResult(newDiceResult));
-                    dispatch(calculateInterimResult());
-                }}
+                changeValue={changeDiceResult}
             />
-            <div className='flex flex-row justify-between bg-yellow-400 font-bold'>
-                <label htmlFor='interim-result'>Zwischenergebnis</label>
-                <p id='interim-result'>{slice.interimResult}</p>
+            <div className='bg-yellow-400 font-bold'>
+                <ChallengeFormDisplay
+                    label='Zwischenergebnis'
+                    value={slice.interimResult}
+                />
             </div>
-            <TextField
-                id='sacrifice'
+            <ChallengeFormCounter
                 label='Opferwert'
-                variant='outlined'
                 value={slice.sacrifice}
-                onChange={(e) => {
-                    const newSacrifice = parseInt(e.target.value);
-                    dispatch(updateSacrifice(newSacrifice));
-                    dispatch(calculateResult());
-                }}
+                changeValue={changeSacrifice}
             />
-            <div className='flex flex-row justify-between bg-yellow-600 font-bold'>
-                <label htmlFor='result'>Ergebnis</label>
-                <p id='result'>{slice.result}</p>
+            <div className='bg-yellow-600 font-bold'>
+                <ChallengeFormDisplay
+                    label='Ergebnis'
+                    value={slice.result}
+                />
             </div>
         </form>
     );

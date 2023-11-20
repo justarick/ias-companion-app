@@ -60,7 +60,7 @@ export default function CombatTableRow(props) {
                 <div className='flex justify-center'>
                     <TextField
                         id='name'
-                        variant='outlined'
+                        variant='standard'
                         placeholder='Name'
                         value={combatMember.name}
                         onChange={(e) =>
