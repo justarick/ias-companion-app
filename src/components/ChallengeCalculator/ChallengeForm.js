@@ -1,4 +1,3 @@
-import { Divider, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,13 +17,13 @@ import {
     challengeCalculatorSelectors,
     updatePool,
 } from '../../store/challengeCalculatorSlice';
-import ChallengeFormCounter from './ChallengeFormCounter';
-import ChallengeFormText from './ChallengeFormText';
-import ChallengeFormDisplay from './ChallengeFormDisplay';
+import ChallengeFormField from './ChallengeFormField';
+import { Divider } from '@mui/material';
 
 export default function ChallengeForm() {
     const dispatch = useDispatch();
-    const slice = useSelector(challengeCalculatorSelectors.slice);
+    const state = useSelector(challengeCalculatorSelectors.slice);
+    const simpleMode = state.simpleMode;
 
     const changeChallangeRating = (newValue) => {
         dispatch(updateChallangeRating(newValue));
@@ -77,79 +76,120 @@ export default function ChallengeForm() {
         dispatch(calculateResult());
     };
 
-    return (
-        <form className='flex flex-col mt-2'>
-            <div className='font-bold'>
-                <ChallengeFormText
-                    label='Schwierigkeit'
-                    value={slice.challangeRating}
-                    changeValue={changeChallangeRating}
+    let poolFields;
+
+    if (simpleMode) {
+        poolFields = (
+            <ChallengeFormField
+                classNameExtension='font-bold'
+                type='counter'
+                label='Pool'
+                value={state.pool}
+                changeValue={changePool}
+            />
+        );
+    } else {
+        poolFields = (
+            <div>
+                <ChallengeFormField
+                    type='counter'
+                    label='Attribut'
+                    value={state.attribute}
+                    changeValue={changeAttribute}
                 />
-            </div>
-            <ChallengeFormCounter
-                label='Attribut'
-                value={slice.attribute}
-                changeValue={changeAttribute}
-            />
-            <ChallengeFormCounter
-                label='Attribut / Fertigkeit'
-                value={slice.skill}
-                changeValue={changeSkill}
-            />
-            <ChallengeFormCounter
-                label='Ausrüstungsbonus'
-                value={slice.bonus}
-                changeValue={changeBonus}
-            />
-            <ChallengeFormCounter
-                label='Vorteil'
-                value={slice.advantage}
-                changeValue={changeAdvantage}
-            />
-            <ChallengeFormCounter
-                label='Statuseffekte'
-                value={slice.statusEffects}
-                changeValue={changeStatusEffects}
-            />
-            <div className='font-bold'>
-                <ChallengeFormText
-                    className='font-bold'
+                <ChallengeFormField
+                    type='counter'
+                    label='Attribut / Fertigkeit'
+                    labelExtension='+'
+                    value={state.skill}
+                    changeValue={changeSkill}
+                />
+                <ChallengeFormField
+                    type='counter'
+                    label='Ausrüstungsbonus'
+                    labelExtension='+'
+                    value={state.bonus}
+                    changeValue={changeBonus}
+                />
+                <ChallengeFormField
+                    type='counter'
+                    label='Vorteil'
+                    labelExtension='+'
+                    value={state.advantage}
+                    changeValue={changeAdvantage}
+                />
+                <ChallengeFormField
+                    type='counter'
+                    label='Statuseffekte'
+                    labelExtension='+'
+                    value={state.statusEffects}
+                    changeValue={changeStatusEffects}
+                />
+                <ChallengeFormField
+                    classNameExtension='font-bold'
+                    type='display'
                     label='Pool'
-                    value={slice.pool}
-                    changeValue={changePool}
+                    labelExtension='='
+                    value={state.pool}
                 />
             </div>
-            <ChallengeFormCounter
-                label='Würfel +1'
-                value={slice.dice}
+        );
+    }
+
+    return (
+        <form className='mt-2'>
+            <ChallengeFormField
+                classNameExtension='font-bold'
+                type='counter'
+                label='Schwierigkeit'
+                value={state.challangeRating}
+                changeValue={changeChallangeRating}
+            />
+            <Divider />
+            {poolFields}
+            <Divider />
+            <ChallengeFormField
+                type='counter'
+                label='Würfel (+1)'
+                value={state.dice}
                 changeValue={changeDice}
             />
-            <ChallengeFormDisplay
+            <Divider />
+            <ChallengeFormField
+                type='display'
                 label='Restpool'
-                value={slice.restPool}
+                value={state.restPool}
             />
-            <ChallengeFormCounter
+            <ChallengeFormField
+                type='counter'
                 label='Würfelergebnis'
-                value={slice.diceResult}
+                labelExtension='+'
+                value={state.diceResult}
                 changeValue={changeDiceResult}
             />
-            <div className='bg-yellow-400 font-bold'>
-                <ChallengeFormDisplay
-                    label='Zwischenergebnis'
-                    value={slice.interimResult}
-                />
-            </div>
-            <ChallengeFormCounter
+            <Divider />
+            <ChallengeFormField
+                classNameExtension='bg-yellow-400 font-bold'
+                type='display'
+                label='Zwischenergebnis'
+                labelExtension='='
+                value={state.interimResult}
+            />
+            <ChallengeFormField
+                type='counter'
                 label='Opferwert'
-                value={slice.sacrifice}
+                labelExtension='+'
+                value={state.sacrifice}
                 changeValue={changeSacrifice}
             />
-            <div className='bg-yellow-600 font-bold'>
-                <ChallengeFormDisplay
-                    label='Ergebnis'
-                    value={slice.result}
-                />
-            </div>
+            <Divider />
+            <ChallengeFormField
+                classNameExtension='bg-yellow-600 font-bold'
+                type='display'
+                label='Ergebnis'
+                labelExtension='='
+                value={state.result}
+            />
         </form>
     );
 }

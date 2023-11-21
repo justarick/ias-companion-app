@@ -45,7 +45,7 @@ export default function CombatTableRow(props) {
     };
 
     return (
-        <tr className={isActive ? 'bg-gray-300' : ''}>
+        <tr className={isActive ? 'bg-blue-300' : 'hover:bg-gray-300'}>
             <td>
                 <ButtonGroup orientation='vertical'>
                     <IconButton onClick={() => changeInitiative('up')}>
