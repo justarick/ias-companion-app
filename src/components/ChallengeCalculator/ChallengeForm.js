@@ -121,7 +121,7 @@ export default function ChallengeForm() {
                 <ChallengeFormField
                     type='counter'
                     label='Statuseffekte'
-                    labelExtension='+'
+                    labelExtension='-'
                     value={state.statusEffects}
                     changeValue={changeStatusEffects}
                 />

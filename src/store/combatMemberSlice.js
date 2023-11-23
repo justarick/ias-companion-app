@@ -63,6 +63,13 @@ const combatMemberSlice = createSlice({
 
             state.activeCombatMemberId = newActiveMemberId;
         },
+        shuffleIds: (state) => {
+            const ids = state.ids;
+
+            ids.sort(() => Math.random() - 0.5);
+
+            state.ids = ids;
+        },
         switchCombatMemberIdIndices: (state, action) => {
             const direction = action.payload.direction;
             const currentIndex = state.ids.indexOf(action.payload.id);
@@ -109,6 +116,7 @@ export const {
     removeMember,
     removeAllMembers,
     resetActiveCombatMemberId,
+    shuffleIds,
     switchActiveCombatMemberId,
     switchCombatMemberIdIndices,
 } = combatMemberSlice.actions;

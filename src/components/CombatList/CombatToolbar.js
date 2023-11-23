@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-    combatMemberSelectors,
     addMember,
     removeAllMembers,
+    shuffleIds,
     switchActiveCombatMemberId,
     resetActiveCombatMemberId,
 } from '../../store/combatMemberSlice';
@@ -11,12 +11,11 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import { Fab, IconButton } from '@mui/material';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import { IconButton } from '@mui/material';
 
 export default function CombatToolbar() {
     const dispatch = useDispatch();
-    const ids = useSelector(combatMemberSelectors.selectIds);
 
     const addCombatMember = () => {
         dispatch(addMember());
@@ -25,6 +24,10 @@ export default function CombatToolbar() {
     const resetCombatList = () => {
         dispatch(removeAllMembers());
         dispatch(resetActiveCombatMemberId());
+    };
+
+    const shuffleMembers = () => {
+        dispatch(shuffleIds());
     };
 
     const changeActiveMember = (direction) => {
@@ -40,13 +43,18 @@ export default function CombatToolbar() {
             </IconButton>
             <IconButton
                 color='error'
-                onClick={() => resetCombatList()}>
+                onClick={resetCombatList}>
                 <RestartAltIcon fontSize='large' />
             </IconButton>
             <IconButton
                 color='success'
-                onClick={() => addCombatMember()}>
+                onClick={addCombatMember}>
                 <PersonAddAlt1Icon fontSize='large' />
+            </IconButton>
+            <IconButton
+                color='warning'
+                onClick={shuffleMembers}>
+                <ShuffleIcon fontSize='large' />
             </IconButton>
             <IconButton
                 color='primary'

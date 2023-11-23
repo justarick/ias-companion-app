@@ -40,8 +40,10 @@ export default function CombatTableRow(props) {
     };
 
     const remove = () => {
+        if (isActive) {
+            dispatch(switchActiveCombatMemberId('next'));
+        }
         dispatch(removeMember(combatMember.id));
-        if (isActive) dispatch(switchActiveCombatMemberId('next'));
     };
 
     return (
