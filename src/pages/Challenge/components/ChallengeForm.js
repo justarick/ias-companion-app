@@ -16,7 +16,7 @@ import {
     calculateResult,
     challengeCalculatorSelectors,
     updatePool,
-} from '../../store/challengeCalculatorSlice';
+} from '../../../store/challengeCalculatorSlice';
 import ChallengeFormField from './ChallengeFormField';
 import { Divider } from '@mui/material';
 

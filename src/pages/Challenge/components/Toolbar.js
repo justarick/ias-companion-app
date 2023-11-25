@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { FormControlLabel, IconButton } from '@mui/material';
+import { FormControlLabel, IconButton, Checkbox } from '@mui/material';
 import {
     updateSimpleMode,
     resetChallengeCalculator,
-} from '../../store/challengeCalculatorSlice';
-import { Checkbox } from '@mui/material';
+} from '../../../store/challengeCalculatorSlice';
 
-export default function CalculatorToolbar() {
+export default function Toolbar() {
     const dispatch = useDispatch();
+
     const simpleMode = useSelector(
         (state) => state.challengeCalculatorSlice.simpleMode
     );

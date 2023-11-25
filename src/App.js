@@ -1,14 +1,32 @@
 import './App.css';
-import ChallengeCalculator from './components/ChallengeCalculator/ChallengeCalculator';
-import CombatList from './components/CombatList/CombatList';
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Layout from './shared/Layout/Layout';
+import StartPage from './pages/Start/StartPage';
+import ChallengePage from './pages/Challenge/ChallengePage';
+import CombatPage from './pages/Combat/CombatPage';
 
-function App() {
+export default function App() {
     return (
-        <div className='flex flex-row'>
-            <CombatList />
-            <ChallengeCalculator />
-        </div>
+        <Router>
+            <Routes>
+                <Route
+                    path='/'
+                    element={<Layout />}>
+                    <Route
+                        path='/'
+                        element={<StartPage />}
+                    />
+                    <Route
+                        path='challenge'
+                        element={<ChallengePage />}
+                    />
+                    <Route
+                        path='combat'
+                        element={<CombatPage />}
+                    />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
-
-export default App;

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { TableRow, TableCell } from '@mui/material';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import {
@@ -6,7 +7,7 @@ import {
     removeMember,
     switchCombatMemberIdIndices,
     switchActiveCombatMemberId,
-} from '../../store/combatMemberSlice';
+} from '../../../store/combatMemberSlice';
 import Counter from './Counter';
 import { ButtonGroup, IconButton } from '@mui/material';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
@@ -14,9 +15,11 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 
-export default function CombatTableRow(props) {
+export default function CombatTable(props) {
     const dispatch = useDispatch();
-    const combatMember = props.combatMember;
+    const combatMember = useSelector(
+        (state) => state.combatMemberSlice.entities[props.combatMemberId]
+    );
     const isActive =
         combatMember.id ===
         useSelector((state) => state.combatMemberSlice.activeCombatMemberId);
@@ -47,8 +50,8 @@ export default function CombatTableRow(props) {
     };
 
     return (
-        <tr className={isActive ? 'bg-blue-300' : 'hover:bg-gray-300'}>
-            <td>
+        <TableRow className={isActive ? 'bg-blue-300' : 'hover:bg-gray-300'}>
+            <TableCell>
                 <ButtonGroup orientation='vertical'>
                     <IconButton onClick={() => changeInitiative('up')}>
                         <ArrowDropUpIcon />
@@ -57,8 +60,8 @@ export default function CombatTableRow(props) {
                         <ArrowDropDownIcon />
                     </IconButton>
                 </ButtonGroup>
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <div className='flex justify-center'>
                     <TextField
                         id='name'
@@ -70,72 +73,72 @@ export default function CombatTableRow(props) {
                         }
                     />
                 </div>
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.health}
                     changeValue={(newValue) =>
                         changeAttributeValue('health', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.stamina}
                     changeValue={(newValue) =>
                         changeAttributeValue('stamina', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.morale}
                     changeValue={(newValue) =>
                         changeAttributeValue('morale', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.dramaPoints}
                     changeValue={(newValue) =>
                         changeAttributeValue('dramaPoints', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.statusEffects}
                     changeValue={(newValue) =>
                         changeAttributeValue('statusEffects', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.advantages}
                     changeValue={(newValue) =>
                         changeAttributeValue('advantages', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.armorPoints}
                     changeValue={(newValue) =>
                         changeAttributeValue('armorPoints', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <Counter
                     value={combatMember.ammunition}
                     changeValue={(newValue) =>
                         changeAttributeValue('ammunition', newValue)
                     }
                 />
-            </td>
-            <td>
+            </TableCell>
+            <TableCell>
                 <div className='flex justify-center'>
                     <IconButton
                         color='error'
@@ -143,7 +146,7 @@ export default function CombatTableRow(props) {
                         <DisabledByDefaultIcon fontSize='large' />
                     </IconButton>
                 </div>
-            </td>
-        </tr>
+            </TableCell>
+        </TableRow>
     );
 }

@@ -6,7 +6,7 @@ import {
     shuffleIds,
     switchActiveCombatMemberId,
     resetActiveCombatMemberId,
-} from '../../store/combatMemberSlice';
+} from '../../../store/combatMemberSlice';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -14,7 +14,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { IconButton } from '@mui/material';
 
-export default function CombatToolbar() {
+export default function Toolbar() {
     const dispatch = useDispatch();
 
     const addCombatMember = () => {

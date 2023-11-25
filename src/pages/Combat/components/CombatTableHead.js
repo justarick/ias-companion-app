@@ -1,3 +1,5 @@
+import React from 'react';
+import { TableHead, TableRow, TableCell } from '@mui/material';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
@@ -10,44 +12,44 @@ import GamesIcon from '@mui/icons-material/Games';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
-export default function CombatTableHeader() {
+export default function CombatTableHead() {
     return (
-        <thead>
-            <tr>
-                <th>
+        <TableHead>
+            <TableRow>
+                <TableCell>
                     <FormatListNumberedIcon />
-                </th>
-                <th className='bg-gray-500'>
+                </TableCell>
+                <TableCell className='bg-gray-500'>
                     <PersonIcon />
-                </th>
-                <th className='bg-red-500'>
+                </TableCell>
+                <TableCell className='bg-red-500'>
                     <HealthAndSafetyIcon />
-                </th>
-                <th className='bg-blue-500'>
+                </TableCell>
+                <TableCell className='bg-blue-500'>
                     <DirectionsRunIcon />
-                </th>
-                <th className='bg-green-500'>
+                </TableCell>
+                <TableCell className='bg-green-500'>
                     <SpaIcon />
-                </th>
-                <th className='bg-purple-500'>
+                </TableCell>
+                <TableCell className='bg-purple-500'>
                     <TheaterComedyIcon />
-                </th>
-                <th className='bg-orange-500'>
+                </TableCell>
+                <TableCell className='bg-orange-500'>
                     <SelfImprovementIcon />
-                </th>
-                <th className='bg-stone-500'>
+                </TableCell>
+                <TableCell className='bg-stone-500'>
                     <ImportExportIcon />
-                </th>
-                <th className='bg-yellow-600'>
+                </TableCell>
+                <TableCell className='bg-yellow-600'>
                     <ShieldIcon />
-                </th>
-                <th className='bg-yellow-400'>
+                </TableCell>
+                <TableCell className='bg-yellow-400'>
                     <GamesIcon />
-                </th>
-                <th className='bg-red-500'>
+                </TableCell>
+                <TableCell className='bg-red-500'>
                     <ExitToAppIcon />
-                </th>
-            </tr>
-        </thead>
+                </TableCell>
+            </TableRow>
+        </TableHead>
     );
 }

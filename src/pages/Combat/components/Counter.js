@@ -3,18 +3,18 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { IconButton } from '@mui/material';
 
-export default function Counter({ value, changeValue }) {
+export default function Counter(props) {
     return (
         <div className='flex flex-row justify-evenly items-center'>
             <IconButton
                 color='error'
-                onClick={() => changeValue(value - 1)}>
+                onClick={() => props.changeValue(props.value - 1)}>
                 <RemoveCircleOutlineIcon />
             </IconButton>
-            <p className='font-bold text-3xl'>{value}</p>
+            <p className='font-bold text-3xl'>{props.value}</p>
             <IconButton
                 color='success'
-                onClick={() => changeValue(value + 1)}>
+                onClick={() => props.changeValue(props.value + 1)}>
                 <AddCircleOutlineIcon />
             </IconButton>
         </div>
