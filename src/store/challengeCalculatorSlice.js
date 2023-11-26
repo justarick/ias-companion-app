@@ -7,25 +7,26 @@ const initialState = {
     skill: 0,
     bonus: 0,
     advantage: 0,
-    statusEffects: 0,
+    statusEffectCount: 0,
     pool: 0,
-    dice: 0,
+    diceCount: 0,
     restPool: 0,
     diceResult: 0,
     interimResult: 0,
-    sacrifice: 0,
+    sacrificeValue: 0,
     result: 0,
+    challengeResult: '',
 };
 
 export const challengeCalculatorSlice = createSlice({
     name: 'challengeCalculatorSlice',
     initialState: initialState,
     reducers: {
+        resetChallengeCalculator: () => initialState,
         updateSimpleMode: (state) => {
             state.simpleMode = !state.simpleMode;
         },
-        resetChallengeCalculator: () => initialState,
-        updateChallangeRating: (state, action) => {
+        updateChallengeRating: (state, action) => {
             state.challangeRating = action.payload;
         },
         updateAttribute: (state, action) => {
@@ -40,8 +41,8 @@ export const challengeCalculatorSlice = createSlice({
         updateAdvantage: (state, action) => {
             state.advantage = action.payload;
         },
-        updateStatusEffects: (state, action) => {
-            state.statusEffects = action.payload;
+        updateStatusEffectCount: (state, action) => {
+            state.statusEffectCount = action.payload;
         },
         updatePool: (state, action) => {
             state.pool = action.payload;
@@ -53,17 +54,17 @@ export const challengeCalculatorSlice = createSlice({
             newPool += state.skill;
             newPool += state.bonus;
             newPool += 2 * state.advantage;
-            newPool -= state.statusEffects;
+            newPool -= state.statusEffectCount;
 
             state.pool = newPool;
         },
-        updateDice: (state, action) => {
-            state.dice = action.payload;
+        updateDiceCount: (state, action) => {
+            state.diceCount = action.payload;
         },
         calculateRestPool: (state) => {
             let newRestPool = state.pool;
 
-            newRestPool -= 5 * state.dice;
+            newRestPool -= 5 * state.diceCount;
 
             state.restPool = newRestPool;
         },
@@ -78,15 +79,52 @@ export const challengeCalculatorSlice = createSlice({
 
             state.interimResult = newInterimResult;
         },
-        updateSacrifice: (state, action) => {
-            state.sacrifice = action.payload;
+        updateSacrificeValue: (state, action) => {
+            state.sacrificeValue = action.payload;
         },
         calculateResult: (state) => {
             let newResult = state.interimResult;
 
-            newResult += state.sacrifice;
+            newResult += state.sacrificeValue;
 
-            state.result = newResult;
+            state.challengeResult = newResult;
+        },
+        updateChallengeResult: (state) => {
+            let newChallengeResult = '';
+
+            if (state.challengeResult >= 20) {
+                newChallengeResult = 'Ja, und...';
+            } else if (
+                state.challengeResult >= 10 &&
+                state.challengeResult < 20
+            ) {
+                newChallengeResult = 'Ja';
+            } else if (
+                state.challengeResult >= 0 &&
+                state.challengeResult < 10
+            ) {
+                newChallengeResult = 'Ja, aber...';
+            } else if (
+                state.challengeResult >= -5 &&
+                state.challengeResult < 0
+            ) {
+                newChallengeResult = 'Nein, aber...';
+            } else if (
+                state.challengeResult >= -10 &&
+                state.challengeResult < -5
+            ) {
+                newChallengeResult = 'Nein';
+            } else if (
+                state.challengeResult >= -15 &&
+                state.challengeResult < -10
+            ) {
+                newChallengeResult = 'Nein, und...';
+            } else if (state.challengeResult < -15) {
+                newChallengeResult =
+                    'Nicht erlaubt! Bringe Opfer, bis du mindestens -15 erreichst.';
+            }
+
+            state.challengeResult = newChallengeResult;
         },
     },
 });
@@ -100,22 +138,23 @@ export const challengeCalculatorSelectors = {
 };
 
 export const {
-    updateSimpleMode,
     resetChallengeCalculator,
-    updateChallangeRating,
+    updateSimpleMode,
+    updateChallengeRating,
     updateAttribute,
     updateSkill,
     updateBonus,
     updateAdvantage,
-    updateStatusEffects,
+    updateStatusEffectCount,
     updatePool,
     calculatePool,
-    updateDice,
+    updateDiceCount,
     calculateRestPool,
     updateDiceResult,
     calculateInterimResult,
-    updateSacrifice,
+    updateSacrificeValue,
     calculateResult,
+    updateChallengeResult,
 } = challengeCalculatorSlice.actions;
 
 export default challengeCalculatorSlice.reducer;
