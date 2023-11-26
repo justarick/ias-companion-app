@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function StartPage() {
+export default function GroupsPage() {
     return (
         <div>
-            <h1>Start Page</h1>
+            <h1>Groups Page</h1>
             <p>Coming soon...</p>
         </div>
     );

@@ -1,26 +1,46 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Divider } from '@mui/material';
+import LooksOneIcon from '@mui/icons-material/LooksOne';
 
-import { updateChallengeRating } from '../../../store/challengeCalculatorSlice';
+import {
+    calculateResult,
+    updateChallengeRating,
+    updateChallengeResult,
+} from '../../../store/challengeCalculatorSlice';
 
 import ChallengeFormField from './ChallengeFormField';
 
 export default function ChallengeRatingForm() {
     const dispatch = useDispatch();
 
+    const value = useSelector(
+        (state) => state.challengeCalculatorSlice.challengeRating
+    );
+
     const changeChallengeRating = (newValue) => {
         dispatch(updateChallengeRating(newValue));
+        dispatch(calculateResult());
+        dispatch(updateChallengeResult());
     };
 
     return (
         <div>
-            <Divider textAlign='left'>Schwierigkeit</Divider>
+            <div className='flex flex-row bg-yellow-400'>
+                <LooksOneIcon />
+                <Divider
+                    className='font-semibold'
+                    variant='middle'
+                    textAlign='left'>
+                    Schwierigkeit festlegen
+                </Divider>
+            </div>
             <ChallengeFormField
                 type='counter'
                 label='Schwierigkeit'
+                value={value}
                 changeValue={changeChallengeRating}
             />
         </div>

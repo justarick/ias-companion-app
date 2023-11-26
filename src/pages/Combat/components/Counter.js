@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 
 export default function Counter(props) {
     return (
-        <div className='flex flex-row justify-evenly items-center'>
+        <div className='w-full flex flex-row justify-around items-center'>
             <IconButton
                 color='error'
                 onClick={() => props.changeValue(props.value - 1)}>

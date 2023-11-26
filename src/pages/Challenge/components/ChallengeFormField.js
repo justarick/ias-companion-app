@@ -30,6 +30,8 @@ export default function ChallengeFormField({
 }) {
     let element;
 
+    if (value === null) value = 0;
+
     if (type === 'display') {
         element = (
             <ChallengeFormDisplay

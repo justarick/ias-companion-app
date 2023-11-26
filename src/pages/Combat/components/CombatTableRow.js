@@ -51,8 +51,8 @@ export default function CombatTable(props) {
 
     return (
         <TableRow className={isActive ? 'bg-blue-300' : 'hover:bg-gray-300'}>
-            <TableCell>
-                <ButtonGroup orientation='vertical'>
+            <TableCell align='center'>
+                <ButtonGroup>
                     <IconButton onClick={() => changeInitiative('up')}>
                         <ArrowDropUpIcon />
                     </IconButton>
@@ -61,20 +61,18 @@ export default function CombatTable(props) {
                     </IconButton>
                 </ButtonGroup>
             </TableCell>
-            <TableCell>
-                <div className='flex justify-center'>
-                    <TextField
-                        id='name'
-                        variant='standard'
-                        placeholder='Name'
-                        value={combatMember.name}
-                        onChange={(e) =>
-                            changeAttributeValue('name', e.target.value)
-                        }
-                    />
-                </div>
+            <TableCell align='center'>
+                <TextField
+                    id='name'
+                    variant='standard'
+                    placeholder='Name'
+                    value={combatMember.name}
+                    onChange={(e) =>
+                        changeAttributeValue('name', e.target.value)
+                    }
+                />
             </TableCell>
-            <TableCell>
+            <TableCell align='center'>
                 <Counter
                     value={combatMember.health}
                     changeValue={(newValue) =>

@@ -2,20 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     simpleMode: true,
-    challangeRating: 0,
+    challengeRating: 0,
     attribute: 0,
     skill: 0,
     bonus: 0,
-    advantage: 0,
+    advantageCount: 0,
     statusEffectCount: 0,
     pool: 0,
     diceCount: 0,
     restPool: 0,
     diceResult: 0,
-    interimResult: 0,
     sacrificeValue: 0,
     result: 0,
-    challengeResult: '',
+    challengeResult: 'Ja, aber...',
 };
 
 export const challengeCalculatorSlice = createSlice({
@@ -27,25 +26,39 @@ export const challengeCalculatorSlice = createSlice({
             state.simpleMode = !state.simpleMode;
         },
         updateChallengeRating: (state, action) => {
-            state.challangeRating = action.payload;
+            if (action.payload !== null) {
+                state.challengeRating = action.payload;
+            }
         },
         updateAttribute: (state, action) => {
-            state.attribute = action.payload;
+            if (action.payload !== null) {
+                state.attribute = action.payload;
+            }
         },
         updateSkill: (state, action) => {
-            state.skill = action.payload;
+            if (action.payload !== null) {
+                state.skill = action.payload;
+            }
         },
         updateBonus: (state, action) => {
-            state.bonus = action.payload;
+            if (action.payload !== null) {
+                state.bonus = action.payload;
+            }
         },
-        updateAdvantage: (state, action) => {
-            state.advantage = action.payload;
+        updateAdvantageCount: (state, action) => {
+            if (action.payload !== null) {
+                state.advantageCount = action.payload;
+            }
         },
         updateStatusEffectCount: (state, action) => {
-            state.statusEffectCount = action.payload;
+            if (action.payload !== null) {
+                state.statusEffectCount = action.payload;
+            }
         },
         updatePool: (state, action) => {
-            state.pool = action.payload;
+            if (action.payload !== null) {
+                state.pool = action.payload;
+            }
         },
         calculatePool: (state) => {
             let newPool = 0;
@@ -53,13 +66,15 @@ export const challengeCalculatorSlice = createSlice({
             newPool += state.attribute;
             newPool += state.skill;
             newPool += state.bonus;
-            newPool += 2 * state.advantage;
+            newPool += 2 * state.advantageCount;
             newPool -= state.statusEffectCount;
 
             state.pool = newPool;
         },
         updateDiceCount: (state, action) => {
-            state.diceCount = action.payload;
+            if (action.payload !== null) {
+                state.diceCount = action.payload;
+            }
         },
         calculateRestPool: (state) => {
             let newRestPool = state.pool;
@@ -69,57 +84,40 @@ export const challengeCalculatorSlice = createSlice({
             state.restPool = newRestPool;
         },
         updateDiceResult: (state, action) => {
-            state.diceResult = action.payload;
-        },
-        calculateInterimResult: (state) => {
-            let newInterimResult = state.restPool;
-
-            newInterimResult += state.diceResult;
-            newInterimResult -= state.challangeRating;
-
-            state.interimResult = newInterimResult;
+            if (action.payload !== null) {
+                state.diceResult = action.payload;
+            }
         },
         updateSacrificeValue: (state, action) => {
-            state.sacrificeValue = action.payload;
+            if (action.payload !== null) {
+                state.sacrificeValue = action.payload;
+            }
         },
         calculateResult: (state) => {
-            let newResult = state.interimResult;
+            let newResult = state.restPool;
 
+            newResult += state.diceResult;
+            newResult -= state.challengeRating;
             newResult += state.sacrificeValue;
 
-            state.challengeResult = newResult;
+            state.result = newResult;
         },
         updateChallengeResult: (state) => {
             let newChallengeResult = '';
 
-            if (state.challengeResult >= 20) {
+            if (state.result >= 20) {
                 newChallengeResult = 'Ja, und...';
-            } else if (
-                state.challengeResult >= 10 &&
-                state.challengeResult < 20
-            ) {
+            } else if (state.result >= 10 && state.result < 20) {
                 newChallengeResult = 'Ja';
-            } else if (
-                state.challengeResult >= 0 &&
-                state.challengeResult < 10
-            ) {
+            } else if (state.result >= 0 && state.result < 10) {
                 newChallengeResult = 'Ja, aber...';
-            } else if (
-                state.challengeResult >= -5 &&
-                state.challengeResult < 0
-            ) {
+            } else if (state.result >= -5 && state.result < 0) {
                 newChallengeResult = 'Nein, aber...';
-            } else if (
-                state.challengeResult >= -10 &&
-                state.challengeResult < -5
-            ) {
+            } else if (state.result >= -10 && state.result < -5) {
                 newChallengeResult = 'Nein';
-            } else if (
-                state.challengeResult >= -15 &&
-                state.challengeResult < -10
-            ) {
+            } else if (state.result >= -15 && state.result < -10) {
                 newChallengeResult = 'Nein, und...';
-            } else if (state.challengeResult < -15) {
+            } else if (state.result < -15) {
                 newChallengeResult =
                     'Nicht erlaubt! Bringe Opfer, bis du mindestens -15 erreichst.';
             }
@@ -144,7 +142,7 @@ export const {
     updateAttribute,
     updateSkill,
     updateBonus,
-    updateAdvantage,
+    updateAdvantageCount,
     updateStatusEffectCount,
     updatePool,
     calculatePool,

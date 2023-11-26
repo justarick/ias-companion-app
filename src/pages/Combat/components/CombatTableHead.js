@@ -16,37 +16,57 @@ export default function CombatTableHead() {
     return (
         <TableHead>
             <TableRow>
-                <TableCell>
+                <TableCell align='center'>
                     <FormatListNumberedIcon />
                 </TableCell>
-                <TableCell className='bg-gray-500'>
+                <TableCell
+                    className='bg-gray-500'
+                    align='center'>
                     <PersonIcon />
                 </TableCell>
-                <TableCell className='bg-red-500'>
+                <TableCell
+                    className='bg-red-500'
+                    align='center'>
                     <HealthAndSafetyIcon />
                 </TableCell>
-                <TableCell className='bg-blue-500'>
+                <TableCell
+                    className='bg-blue-500'
+                    align='center'>
                     <DirectionsRunIcon />
                 </TableCell>
-                <TableCell className='bg-green-500'>
+                <TableCell
+                    className='bg-green-500'
+                    align='center'>
                     <SpaIcon />
                 </TableCell>
-                <TableCell className='bg-purple-500'>
+                <TableCell
+                    className='bg-purple-500'
+                    align='center'>
                     <TheaterComedyIcon />
                 </TableCell>
-                <TableCell className='bg-orange-500'>
+                <TableCell
+                    className='bg-orange-500'
+                    align='center'>
                     <SelfImprovementIcon />
                 </TableCell>
-                <TableCell className='bg-stone-500'>
+                <TableCell
+                    className='bg-stone-500'
+                    align='center'>
                     <ImportExportIcon />
                 </TableCell>
-                <TableCell className='bg-yellow-600'>
+                <TableCell
+                    className='bg-yellow-600'
+                    align='center'>
                     <ShieldIcon />
                 </TableCell>
-                <TableCell className='bg-yellow-400'>
+                <TableCell
+                    className='bg-yellow-400'
+                    align='center'>
                     <GamesIcon />
                 </TableCell>
-                <TableCell className='bg-red-500'>
+                <TableCell
+                    className='bg-red-500'
+                    align='center'>
                     <ExitToAppIcon />
                 </TableCell>
             </TableRow>
