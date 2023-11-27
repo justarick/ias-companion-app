@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    simpleMode: true,
+    buildPoolManually: false,
     challengeRating: 0,
     attribute: 0,
     skill: 0,
@@ -22,8 +22,8 @@ export const challengeCalculatorSlice = createSlice({
     initialState: initialState,
     reducers: {
         resetChallengeCalculator: () => initialState,
-        updateSimpleMode: (state) => {
-            state.simpleMode = !state.simpleMode;
+        updateBuildPoolManually: (state) => {
+            state.buildPoolManually = !state.buildPoolManually;
         },
         updateChallengeRating: (state, action) => {
             if (action.payload !== null) {
@@ -137,7 +137,7 @@ export const challengeCalculatorSelectors = {
 
 export const {
     resetChallengeCalculator,
-    updateSimpleMode,
+    updateBuildPoolManually,
     updateChallengeRating,
     updateAttribute,
     updateSkill,

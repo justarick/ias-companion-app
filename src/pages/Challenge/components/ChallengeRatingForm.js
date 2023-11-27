@@ -27,8 +27,8 @@ export default function ChallengeRatingForm() {
     };
 
     return (
-        <div>
-            <div className='flex flex-row bg-yellow-400'>
+        <div className='w-1/5'>
+            <div className='flex flex-row bg-black text-yellow-400'>
                 <LooksOneIcon />
                 <Divider
                     className='font-semibold'

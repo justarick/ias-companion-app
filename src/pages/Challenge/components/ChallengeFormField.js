@@ -21,7 +21,7 @@ const ChallengeFormDisplay = ({ label, value }) => {
 };
 
 export default function ChallengeFormField({
-    classNameExtension = '',
+    className = '',
     type = 'display',
     label = 'Label',
     labelExtension = '',
@@ -55,10 +55,10 @@ export default function ChallengeFormField({
         <div
             className={
                 'mb-2 p-2 flex flex-row justify-between align-middle hover:bg-gray-300 ' +
-                classNameExtension
+                className
             }>
             <label htmlFor={label}>{label}</label>
-            <div className='w-1/2 flex flex-row justify-between'>
+            <div className='flex flex-row justify-between'>
                 <p>{labelExtension}</p>
                 {element}
             </div>

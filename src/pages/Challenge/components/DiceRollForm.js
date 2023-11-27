@@ -34,8 +34,8 @@ export default function DiceRollForm() {
     };
 
     return (
-        <div>
-            <div className='flex flex-row bg-yellow-400'>
+        <div className='w-1/5'>
+            <div className='flex flex-row bg-black text-yellow-400'>
                 <Looks3Icon />
                 <Divider
                     className='font-semibold'

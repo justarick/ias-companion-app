@@ -24,8 +24,8 @@ export default function SacrificeAndResultForm() {
     };
 
     return (
-        <div>
-            <div className='flex flex-row bg-yellow-400'>
+        <div className='w-1/5'>
+            <div className='flex flex-row bg-black text-yellow-400'>
                 <Looks4Icon />
                 <Divider
                     className='font-semibold'
@@ -41,14 +41,10 @@ export default function SacrificeAndResultForm() {
                 changeValue={changeSacrificeValue}
             />
             <ChallengeFormField
+                className='bg-yellow-400 font-bold'
                 type='display'
                 label='Ergebnis'
                 value={state.result}
-            />
-            <ChallengeFormField
-                type='display'
-                label='Narrativ'
-                value={state.challengeResult}
             />
         </div>
     );
