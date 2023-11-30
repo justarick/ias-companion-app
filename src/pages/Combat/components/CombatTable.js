@@ -5,7 +5,7 @@ import CombatTableBody from './CombatTableBody';
 
 export default function CombatTable() {
     return (
-        <TableContainer>
+        <TableContainer className='p-4'>
             <Table
                 size='small'
                 stickyHeader>

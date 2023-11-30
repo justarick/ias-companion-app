@@ -21,7 +21,6 @@ const ChallengeFormDisplay = ({ label, value }) => {
 };
 
 export default function ChallengeFormField({
-    className = '',
     type = 'display',
     label = 'Label',
     value = 0,
@@ -54,8 +53,7 @@ export default function ChallengeFormField({
         <Stack
             direction={'row'}
             className={
-                'mb-2 p-2 flex flex-row justify-between align-middle hover:bg-gray-300 ' +
-                className
+                'mb-2 p-2 flex flex-row justify-between align-middle hover:bg-gray-300 '
             }>
             <label htmlFor={label}>{label}</label>
             <div className='w-1/3'>{element}</div>

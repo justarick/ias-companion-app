@@ -2,16 +2,18 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Divider } from '@mui/material';
+import { Stack, Divider } from '@mui/material';
+
 import LooksOneIcon from '@mui/icons-material/LooksOne';
+
+import ChallengeFormField from './ChallengeFormField';
 
 import {
     calculateResult,
     updateChallengeRating,
     updateChallengeResult,
 } from '../../../store/challengeCalculatorSlice';
-
-import ChallengeFormField from './ChallengeFormField';
+import { yellow } from '@mui/material/colors';
 
 export default function ChallengeRatingForm() {
     const dispatch = useDispatch();
@@ -27,22 +29,25 @@ export default function ChallengeRatingForm() {
     };
 
     return (
-        <div className='w-1/5'>
-            <div className='flex flex-row bg-black text-yellow-400'>
-                <LooksOneIcon />
-                <Divider
-                    className='font-semibold'
-                    variant='middle'
-                    textAlign='left'>
-                    Schwierigkeit festlegen
-                </Divider>
-            </div>
-            <ChallengeFormField
-                type='counter'
-                label='Schwierigkeit'
-                value={value}
-                changeValue={changeChallengeRating}
-            />
-        </div>
+        <Stack className='w-1/5'>
+            <Stack
+                direction={'row'}
+                className='flex align-middle font-semibold text-2xl'
+                sx={{
+                    color: yellow[600],
+                    backgroundColor: 'black',
+                }}>
+                <LooksOneIcon fontSize='large' />
+                <p>Schwierigkeit festlegen</p>
+            </Stack>
+            <Stack>
+                <ChallengeFormField
+                    type='counter'
+                    label='Schwierigkeit'
+                    value={value}
+                    changeValue={changeChallengeRating}
+                />
+            </Stack>
+        </Stack>
     );
 }

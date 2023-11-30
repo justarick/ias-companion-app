@@ -16,7 +16,10 @@ import {
     updateChallengeResult,
 } from '../../../store/challengeCalculatorSlice';
 
-import { Divider, FormControlLabel, Checkbox } from '@mui/material';
+import { Divider, Checkbox, Stack } from '@mui/material';
+
+import { yellow } from '@mui/material/colors';
+
 import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 
 import ChallengeFormField from './ChallengeFormField';
@@ -78,25 +81,27 @@ export default function PoolCalculatorForm() {
     };
 
     return (
-        <div className='w-1/5'>
-            <div className='flex flex-row bg-black text-yellow-400'>
-                <LooksTwoIcon />
-                <Divider
-                    className='font-semibold'
-                    variant='middle'
-                    textAlign='left'>
-                    Pool bauen
-                </Divider>
+        <Stack className='w-1/5'>
+            <Stack
+                direction={'row'}
+                className='flex align-middle font-semibold text-2xl'
+                sx={{
+                    color: yellow[600],
+                    backgroundColor: 'black',
+                }}>
+                <LooksTwoIcon fontSize='large' />
+                <p>Pool bauen</p>
                 <Checkbox
                     checked={store.simpleMode}
                     onChange={changeSimpleMode}
+                    size='large'
                     sx={{
                         padding: '0',
-                        color: 'rgb(250 204 21)',
-                        '&.Mui-checked': { color: 'rgb(250 204 21)' },
+                        color: yellow[600],
+                        '&.Mui-checked': { color: yellow[600] },
                     }}
                 />
-            </div>
+            </Stack>
             {store.buildPoolManually ? (
                 <>
                     <ChallengeFormField
@@ -148,6 +153,6 @@ export default function PoolCalculatorForm() {
                     changeValue={changePool}
                 />
             )}
-        </div>
+        </Stack>
     );
 }

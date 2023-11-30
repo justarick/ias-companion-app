@@ -7,7 +7,7 @@ import ChallengeFormGroup from './components/ChallengeFormGroup';
 
 export default function ChallengePage() {
     return (
-        <Stack className='w-full h-full'>
+        <Stack className='h-full'>
             <Toolbar />
             <ChallengeFormGroup />
         </Stack>

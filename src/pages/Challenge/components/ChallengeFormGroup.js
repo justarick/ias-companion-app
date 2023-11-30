@@ -10,10 +10,10 @@ import ChallengeResult from './ChallengeResult';
 
 export default function ChallengeFormGroup() {
     return (
-        <Stack className='h-full flex flex-col justify-between'>
+        <Stack className='h-full p-4 flex flex-col justify-between'>
             <Stack
                 direction='row'
-                className='flex justify-around'>
+                className='flex justify-between'>
                 <ChallengeRatingForm />
                 <PoolCalculatorForm />
                 <DiceRollForm />

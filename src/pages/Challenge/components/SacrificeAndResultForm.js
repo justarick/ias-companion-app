@@ -8,7 +8,10 @@ import {
     updateChallengeResult,
 } from '../../../store/challengeCalculatorSlice';
 
-import { Divider } from '@mui/material';
+import { Stack, Divider } from '@mui/material';
+
+import { red, yellow } from '@mui/material/colors';
+
 import Looks4Icon from '@mui/icons-material/Looks4';
 import ChallengeFormField from './ChallengeFormField';
 
@@ -24,28 +27,30 @@ export default function SacrificeAndResultForm() {
     };
 
     return (
-        <div className='w-1/5'>
-            <div className='flex flex-row bg-black text-yellow-400'>
-                <Looks4Icon />
-                <Divider
-                    className='font-semibold'
-                    variant='middle'
-                    textAlign='left'>
-                    Opfern und Ergebnis
-                </Divider>
-            </div>
-            <ChallengeFormField
-                type='counter'
-                label='Opferwert'
-                value={state.sacrificeValue}
-                changeValue={changeSacrificeValue}
-            />
-            <ChallengeFormField
-                className='bg-yellow-400 font-bold'
-                type='display'
-                label='Ergebnis'
-                value={state.result}
-            />
-        </div>
+        <Stack className='w-1/5'>
+            <Stack
+                direction={'row'}
+                className='flex align-middle font-semibold text-2xl'
+                sx={{
+                    color: yellow[600],
+                    backgroundColor: 'black',
+                }}>
+                <Looks4Icon fontSize='large' />
+                <p>Opfern und Ergebnis</p>
+            </Stack>
+            <Stack>
+                <ChallengeFormField
+                    type='counter'
+                    label='Opferwert'
+                    value={state.sacrificeValue}
+                    changeValue={changeSacrificeValue}
+                />
+                <ChallengeFormField
+                    type='display'
+                    label='Ergebnis'
+                    value={state.result}
+                />
+            </Stack>
+        </Stack>
     );
 }

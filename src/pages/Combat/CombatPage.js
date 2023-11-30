@@ -1,13 +1,15 @@
 import React from 'react';
 
+import { Stack } from '@mui/material';
+
 import Toolbar from './components/Toolbar';
 import CombatTable from './components/CombatTable';
 
 export default function CombatPage() {
     return (
-        <div className='w-full flex flex-col'>
+        <Stack className='h-full'>
             <Toolbar />
             <CombatTable />
-        </div>
+        </Stack>
     );
 }

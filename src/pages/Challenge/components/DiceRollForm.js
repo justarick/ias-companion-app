@@ -2,6 +2,10 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Stack } from '@mui/material';
+
+import { yellow } from '@mui/material/colors';
+
 import {
     updateDiceCount,
     calculateRestPool,
@@ -34,33 +38,36 @@ export default function DiceRollForm() {
     };
 
     return (
-        <div className='w-1/5'>
-            <div className='flex flex-row bg-black text-yellow-400'>
-                <Looks3Icon />
-                <Divider
-                    className='font-semibold'
-                    variant='middle'
-                    textAlign='left'>
-                    Würfeln
-                </Divider>
-            </div>
-            <ChallengeFormField
-                type='counter'
-                label='Würfelanzahl (+1)'
-                value={state.diceCount}
-                changeValue={changeDiceCount}
-            />
-            <ChallengeFormField
-                type='display'
-                label='Restpool'
-                value={state.restPool}
-            />
-            <ChallengeFormField
-                type='counter'
-                label='Würfelergebnis'
-                value={state.diceResult}
-                changeValue={changeDiceResult}
-            />
-        </div>
+        <Stack className='w-1/5'>
+            <Stack
+                direction={'row'}
+                className='flex align-middle font-semibold text-2xl'
+                sx={{
+                    color: yellow[600],
+                    backgroundColor: 'black',
+                }}>
+                <Looks3Icon fontSize='large' />
+                <p>Würfeln</p>
+            </Stack>
+            <Stack>
+                <ChallengeFormField
+                    type='counter'
+                    label='Würfelanzahl (+1)'
+                    value={state.diceCount}
+                    changeValue={changeDiceCount}
+                />
+                <ChallengeFormField
+                    type='display'
+                    label='Restpool'
+                    value={state.restPool}
+                />
+                <ChallengeFormField
+                    type='counter'
+                    label='Würfelergebnis'
+                    value={state.diceResult}
+                    changeValue={changeDiceResult}
+                />
+            </Stack>
+        </Stack>
     );
 }

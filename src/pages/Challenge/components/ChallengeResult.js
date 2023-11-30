@@ -1,7 +1,10 @@
-import { Container } from '@mui/material';
 import React from 'react';
 
+import { Stack } from '@mui/material';
+
 import { useSelector } from 'react-redux';
+
+import { yellow } from '@mui/material/colors';
 
 export default function ChallengeResult() {
     const challengeResult = useSelector(
@@ -9,10 +12,12 @@ export default function ChallengeResult() {
     );
 
     return (
-        <Container>
-            <p className='p-2 bg-yellow-400 font-bold text-2xl'>
-                {challengeResult}
-            </p>
-        </Container>
+        <Stack
+            className='p-2 font-bold text-2xl text-center'
+            sx={{
+                backgroundColor: yellow[600],
+            }}>
+            <p>{challengeResult}</p>
+        </Stack>
     );
 }
