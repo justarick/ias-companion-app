@@ -12,7 +12,10 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
-import { IconButton } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
+
+import { blue, red, green, yellow } from '@mui/material/colors';
+import ToolbarButton from '../../../shared/components/ToolbarButton';
 
 export default function Toolbar() {
     const dispatch = useDispatch();
@@ -35,32 +38,34 @@ export default function Toolbar() {
     };
 
     return (
-        <div className='flex justify-evenly'>
-            <IconButton
-                color='primary'
-                onClick={() => changeActiveMember('previous')}>
-                <SkipPreviousIcon fontSize='large' />
-            </IconButton>
-            <IconButton
-                color='error'
-                onClick={resetCombatList}>
-                <RestartAltIcon fontSize='large' />
-            </IconButton>
-            <IconButton
-                color='success'
-                onClick={addCombatMember}>
-                <PersonAddAlt1Icon fontSize='large' />
-            </IconButton>
-            <IconButton
-                color='warning'
-                onClick={shuffleMembers}>
-                <ShuffleIcon fontSize='large' />
-            </IconButton>
-            <IconButton
-                color='primary'
-                onClick={() => changeActiveMember('next')}>
-                <SkipNextIcon fontSize='large' />
-            </IconButton>
-        </div>
+        <Stack
+            className='flex justify-evenly bg-black'
+            direction='row'>
+            <ToolbarButton
+                color={blue[600]}
+                icon={<SkipPreviousIcon fontSize='large' />}
+                onClick={() => changeActiveMember('previous')}
+            />
+            <ToolbarButton
+                color={red[600]}
+                icon={<RestartAltIcon fontSize='large' />}
+                onClick={resetCombatList}
+            />
+            <ToolbarButton
+                color={green[600]}
+                icon={<PersonAddAlt1Icon fontSize='large' />}
+                onClick={addCombatMember}
+            />
+            <ToolbarButton
+                color={yellow[600]}
+                icon={<ShuffleIcon fontSize='large' />}
+                onClick={shuffleMembers}
+            />
+            <ToolbarButton
+                color={blue[600]}
+                icon={<SkipNextIcon fontSize='large' />}
+                onClick={() => changeActiveMember('next')}
+            />
+        </Stack>
     );
 }

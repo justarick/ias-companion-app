@@ -54,10 +54,10 @@ export default function CombatTable(props) {
             <TableCell align='center'>
                 <ButtonGroup>
                     <IconButton onClick={() => changeInitiative('up')}>
-                        <ArrowDropUpIcon />
+                        <ArrowDropUpIcon fontSize='large' />
                     </IconButton>
                     <IconButton onClick={() => changeInitiative('down')}>
-                        <ArrowDropDownIcon />
+                        <ArrowDropDownIcon fontSize='large' />
                     </IconButton>
                 </ButtonGroup>
             </TableCell>

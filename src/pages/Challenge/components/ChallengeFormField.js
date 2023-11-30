@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 
 const ChallengeFormCounter = ({ label, value, changeValue }) => {
     return (
@@ -24,7 +24,6 @@ export default function ChallengeFormField({
     className = '',
     type = 'display',
     label = 'Label',
-    labelExtension = '',
     value = 0,
     changeValue = () => {},
 }) {
@@ -52,16 +51,14 @@ export default function ChallengeFormField({
     }
 
     return (
-        <div
+        <Stack
+            direction={'row'}
             className={
                 'mb-2 p-2 flex flex-row justify-between align-middle hover:bg-gray-300 ' +
                 className
             }>
             <label htmlFor={label}>{label}</label>
-            <div className='flex flex-row justify-between'>
-                <p>{labelExtension}</p>
-                {element}
-            </div>
-        </div>
+            <div className='w-1/3'>{element}</div>
+        </Stack>
     );
 }

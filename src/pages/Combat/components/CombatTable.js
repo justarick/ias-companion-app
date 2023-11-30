@@ -6,7 +6,9 @@ import CombatTableBody from './CombatTableBody';
 export default function CombatTable() {
     return (
         <TableContainer>
-            <Table size='small'>
+            <Table
+                size='small'
+                stickyHeader>
                 <CombatTableHead />
                 <CombatTableBody />
             </Table>

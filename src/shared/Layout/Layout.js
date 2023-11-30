@@ -3,9 +3,11 @@ import Navigation from './components/Navigation';
 
 export default function Layout() {
     return (
-        <div className='h-full w-full flex flex-row'>
+        <div className='w-screen h-screen flex flex-row'>
             <Navigation />
-            <Outlet />
+            <div className='w-full h-full'>
+                <Outlet />
+            </div>
         </div>
     );
 }
