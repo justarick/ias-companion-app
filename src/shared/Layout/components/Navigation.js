@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import HomeIcon from '@mui/icons-material/Home';
 import CalculateIcon from '@mui/icons-material/Calculate';
@@ -12,7 +12,6 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NavLink from './NavLink';
-import { Home } from '@mui/icons-material';
 
 export default function Navigation() {
     const path = useLocation().pathname;
