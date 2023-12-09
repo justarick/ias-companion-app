@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ias-companion-app/static/css/main.eeb3b22f.css",
-    "main.js": "/ias-companion-app/static/js/main.17b032d4.js",
+    "main.js": "/ias-companion-app/static/js/main.16675a8b.js",
     "static/js/787.92003b4f.chunk.js": "/ias-companion-app/static/js/787.92003b4f.chunk.js",
     "index.html": "/ias-companion-app/index.html",
     "main.eeb3b22f.css.map": "/ias-companion-app/static/css/main.eeb3b22f.css.map",
-    "main.17b032d4.js.map": "/ias-companion-app/static/js/main.17b032d4.js.map",
+    "main.16675a8b.js.map": "/ias-companion-app/static/js/main.16675a8b.js.map",
     "787.92003b4f.chunk.js.map": "/ias-companion-app/static/js/787.92003b4f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eeb3b22f.css",
-    "static/js/main.17b032d4.js"
+    "static/js/main.16675a8b.js"
   ]
 }
