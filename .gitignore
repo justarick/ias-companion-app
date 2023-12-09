@@ -1,2 +1,3 @@
-# include .gitignore from reactjs
+# include other .gitignore files
 !src/reactjs/.gitignore
+!src/reactts/.gitignore
