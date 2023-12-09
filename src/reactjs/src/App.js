@@ -1,6 +1,9 @@
-import './App.css';
 import React from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import { Route, HashRouter as Router, Routes } from 'react-router-dom';
+
+import './App.css';
+
 import Layout from './shared/Layout/Layout';
 import StartPage from './pages/Start/StartPage';
 import ChallengePage from './pages/Challenge/ChallengePage';
